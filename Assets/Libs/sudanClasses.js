@@ -49,7 +49,7 @@ function Marriage(ParentObj){
 	this.parent = ParentObj;
 	this.__proto__ = new LifeEvent();
 	this.effect = "You Have been married...";
-	this.minAge = 13;
+	this.minAge = 9;
 	this.active = false;
 	this.chance = 10;
 	this.applyEffect = function(){
@@ -122,7 +122,7 @@ function Aid(ParentObj){
 	
 }
 
-//Person is a base class. All peple inherit from it
+////Person is a base class. All peple inherit from it
 function Player(){
 	//once that baby comes out... you ain't a child anymore
 	this.motherhood = false;
@@ -199,7 +199,7 @@ function School(){
 	this.feedChance = 12;
 	this.materialChance = 10;
 	this.buildingChance = 15;
-	this.goodTeachChance = 40;
+	this.goodTeachChance = 13;
 	
 	this.available = true;
 	

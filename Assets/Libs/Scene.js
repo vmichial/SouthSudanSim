@@ -78,7 +78,7 @@ function Scene(Type,NAME){
 		switch(that.type){
 			case "END":{} break;
 			case "CUT":{} break;
-			case "LEVEL":{} break;
+			case "LEVEL":{this.Level.draw();} break;
 			case "MENU":{} break;
 			
 		}
@@ -88,7 +88,7 @@ function Scene(Type,NAME){
 		switch(that.type){
 			case "END":{} break;
 			case "CUT":{} break;
-			case "LEVEL":{} break;
+			case "LEVEL":{this.Level.update();} break;
 			case "MENU":{} break;
 			
 		}
