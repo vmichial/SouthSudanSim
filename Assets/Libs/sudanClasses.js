@@ -1,7 +1,7 @@
 //objects for sudan classes
 
 //a disease will have a name, a chance of happening, and a cost
-//a person will give themself a disease on certain condtions
+//a person will give themselves a disease on certain conditions
 function Disease(ParentObj){
 	this.parent = ParentObj;
 	
@@ -16,14 +16,12 @@ function Disease(ParentObj){
 	//chance, to be interpreted as a percent. how likely wll it kill
 	//you if you have it
 	this.DeathChance = 50;
-	//how many actions does this disease prevent
-	this.actionCost = 3;
 	//the maximum amount of actions that can go toward work
 	//while you have the disease
-	this.maxWork = 2;
+	this.canWork = false;
 	//maximum amount of actions you can put to school while 
 	//you have the disease
-	this.maxSchool = 1;
+	this.canSchool = false;
 	//duration will determine how long it will last (in turns)
 	this.duration = 1;
 }
@@ -39,10 +37,10 @@ function Person(){
 	this.married = false;
 	//if the family member is alive, yay
 	this.alive = true;
-	//number of action points can be [0,10]
-	this.MaxActionPoints = 10;
+	//is the person capable of working
+	this.canWork = true;
 	
-	//age can be a number between 20 and 60
+	//age can be a number between 5 and 60
 	this.Age = 30;
 	//education is a number between 1 and 12 (inclusive) 
 	//it tells grade level
@@ -55,9 +53,10 @@ function Person(){
 	//roll each time. also, every turn the player must roll
 	//on each disease and let them play out.
 	this.diseases = new Array();
-	
+	//LifeEvents will affect people by chance. everyone has them, with a chance of it
+	//happening based in different parameters
 	this.lifeEvent = new Array();
-
+	//init is blank, it is here for initialization
 	this.init = function(){
 	
 	}
@@ -68,20 +67,24 @@ function Person(){
 
 //Father is a type of person with his own special abilities
 function Father(){
-
+	this.alive = true;
+	this.canWork = true;
+	this.diseases = new Array();
+	this.lifeEvents = new Array();
 }
-Father.prototype = new Person();
 
 //Mother is a type of person with her own special abilities
 function Mother(){
-
+	this.alive = true;
+	this.canWork = true;
+	this.diseases = new Array();
+	this.lifeEvents = new Array();
 }
-Mother.prototype = Person();
 
 //Daughter is the player type, she is a person but will have special
 //educational goals
 function Daughter(){
-
+	
 }
 Daughter.prototype = new Person();
 
