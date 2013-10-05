@@ -1,5 +1,6 @@
 //objects for sudan classes
 
+
 //a disease will have a name, a chance of happening, and a cost
 //a person will give themselves a disease on certain conditions
 function Disease(ParentObj){
@@ -25,24 +26,96 @@ function Disease(ParentObj){
 	this.duration = 1;
 }
 
-//life events have a name
+//life events encompass getting pregnant, married, or killed
+//they exist always looming over the player. And every player 
+//comes stock with a lifeevent. So do the mothers, because well
+//women always have to have the option of randomly dying =/
 function LifeEvent(ParentObj){
 	this.parent = ParentObj;
-	this.effect;
-	this.active = false;
-	this.chance;
-	this.increaceChance = function(increaseBy){this.chance+=increaseBy;}
-	
+	this.effect;//a string for when you have the life event
+	this.active;//if it is active, then the chance of the effect is upon you
+	this.chance;//a number between 1 and 100, representing the chance the effect will be applied
+	this.minAge;//the minimum age the lifeEvent must wait...stalking before attempting to murder yo fais
+	this.increaceChance = function(increaseBy){this.chance+=increaseBy;}//in case life isn't hard enough
+	this.applyEffect;//it will either activate on some reason, or try ruining your life
 }
 
+//this object is placed inside all players at the start of the game
+//it is a life event, that is inactive until the min age of 13
+//once it happens, it will attempt to make you married everytime its
+//effect is applied. if you are 13 or older, then you have a 10 percent
+//chance of being married off to someone.
+function Marriage(ParentObj){
+	this.parent = ParentObj;
+	this.__proto__ = new LifeEvent();
+	this.effect = "You Have been married...";
+	this.minAge = 13;
+	this.active = false;
+	this.chance = 10;
+	this.applyEffect = function(){
+		var roll = Math.floor(Math.random() * (100 - 1 + 1) + 1);
+		if(parent.age<this.minAge)return;
+		else this.active=true;
+		if(parent.age>=this.minAge && roll<=this.chance && this.active){
+			this.parent.married = true;
+			this.parent.canWork = false;
+			this.parent.canSchool = false;
+		}
+	}
+}
+
+//this life event sucks. Everytime you goto school, after
+//a min age (hitting puberty) you have a chance of getting 
+//pregnant by your dirty *** teacher. Maybe its love, maybe
+//he's just a a******, regardless you are preggers and can't
+//goto school anymore. :( motherhod...
+function Preggers(ParentObj){
+	this.parent = ParentObj;
+	this.__proto__ = new LifeEvent();
+	this.effect = "Your teacher has gotten you pregnant";
+	this.minAge = 13;
+	this.active = false;
+	this.chance = 5;
+	this.turnsUntilMotherhood = 3;
+	this.applyEffect = function(){
+		var roll = Math.floor(Math.random() * (100 - 1 + 1) + 1);
+		if(parent.age<this.minAge)return;
+		else this.active=true;
+		if(parent.age>=this.minAge && roll<=this.chance && this.active &&this.turnsUntilMotherhood <1){
+			this.parent.motherhood = true;
+			this.parent.canWork = false;
+			this.parent.canSchool = false;
+		}
+		else this.turnsUntilMotherhood--;
+	}
+}
+
+//this object is placed in all mother objects when they are created.
+//it is a lifeEvent that will murder your mother's fais and blame you
+//for it 5 percent of all games played.
+function ChildBirthDeath(ParentObj){
+	this.parent = ParentObj;
+	this.__proto__=new LifeEvent();
+	this.effect = "Your Mother died while giving birth to you";
+	this.active = true;
+	this.minAge = 0;
+	this.chance = 5;
+	this.applyEffect = function(){
+		var roll = Math.floor(Math.random() * (100 - 1 + 1) + 1);
+		console.log(roll);
+		if(roll<=this.chance && this.active){this.parent.alive = false;}
+	}	
+}
+
+
 function Disaster(ParentObj){
-	this.name = "Flood";
-	this.effect = "Your Area has experienced a flood";
-	this.continuingEffect = "The flood continues...";
-	this.noHospital = true;
-	this.noSchool = true;
-	this.noWork = true;
-	this.duration = 3;	
+	this.name;
+	this.effect;
+	this.continuingEffect;
+	this.noHospital;
+	this.noSchool;
+	this.noWork;
+	this.duration;	
 }
 
 function Aid(ParentObj){
@@ -51,6 +124,9 @@ function Aid(ParentObj){
 
 //Person is a base class. All peple inherit from it
 function Player(){
+	//once that baby comes out... you ain't a child anymore
+	this.motherhood = false;
+	//you are married eh? ITS THE END!
 	this.married = false;
 	//if the family member is alive, yay
 	this.alive = true;
@@ -78,7 +154,7 @@ function Player(){
 		this.alive = true;
 		this.canWork = true;
 		this.canSchool = true;
-		this.schoolProgress = true;
+		this.schoolProgress = 0;
 		this.diseases = new Array();
 		this.lifeEvent = new Array();
 		this.age = 5;
@@ -105,6 +181,8 @@ function Mother(){
 	this.canSchool = false;
 	this.diseases = new Array();
 	this.lifeEvents = new Array();
+	this.lifeEvents.push(new ChildBirthDeath(this));
+	this.lifeEvents[0].applyEffect();
 }
 
 function Sibling(){
@@ -117,37 +195,55 @@ function Sibling(){
 // the school is used for certai education bonuses
 //use roll to initialize the school randomly
 function School(){
-	this.available = true;
-	this.hasGoodTeacher = false;;
-	this.hasBuilding = false;
-	this.hasMats = false;
-	this.feedStudents = false;
-	this.far = false;
+	this.distanceChance = 49;
+	this.feedChance = 12;
+	this.materialChance = 10;
+	this.buildingChance = 15;
+	this.goodTeachChance = 40;
 	
-	this.roll = function(){
+	this.available = true;
+	
+	this.hasGoodTeacher = ( (Math.floor(Math.random() * (100 - 1 + 1) + 1))<= this.goodTeachChance ) ? true : false;	
+	this.hasBuilding = ( (Math.floor(Math.random() * (100 - 1 + 1) + 1))<= this.buildingChance ) ? true : false;
+	this.hasMats = ( (Math.floor(Math.random() * (100 - 1 + 1) + 1))<= this.materialChance ) ? true : false;
+	this.feedStudents = ( (Math.floor(Math.random() * (100 - 1 + 1) + 1))<= this.feedChance ) ? true : false;
+	this.far = ( (Math.floor(Math.random() * (100 - 1 + 1) + 1))<= this.distanceChance ) ? true : false;
+	
+	
+	
+	this.reRoll = function(){
 		var rolls = Math.floor(Math.random() * (100 - 1 + 1) + 1);
-		this.far = ( (roll<50)? true : false );
+		this.far = ( (rolls<=this.distanceChance)? true : false );
 		rolls = Math.floor(Math.random() * (100 - 1 + 1) + 1);
-		this.feedStudents = ( (roll<13) ?  true : false );
+		this.feedStudents = ( (rolls<=this.feedChance) ?  true : false );
 		rolls = Math.floor(Math.random() * (100 - 1 + 1) + 1);
-		this.hasMats = ( (roll<11) ? true : false );
+		this.hasMats = ( (rolls<=this.materialChance) ? true : false );
 		rolls = Math.floor(Math.random() * (100 - 1 + 1) + 1);
-		this.hasGoodTeacher = ( (roll<51) ? true : false );
+		this.hasGoodTeacher = ( (rolls<51) ? true : false );
 		rolls = Math.floor(Math.random() * (100 - 1 + 1) + 1);
-		this.hasBuilding = ( (roll<16) ? true : false);
+		this.hasBuilding = ( (rolls<=this.buildingChance) ? true : false);
 	}
 }
 
-function Hospital(){
-	available = false;
-	this.roll = function(){
+//L'hospital is done. make a hospital object and it will have a 5% chance of
+//existing. if for any reason you need a new school, just call reRoll on your
+//instance of Hospital and it is gonnareroll. 5% chance of having a hospital.
+//so lucky you if you get one.
+function Hospital(){	
+	this.chance = 5;
+	this.available = ( (Math.floor(Math.random() * (100 - 1 + 1) + 1))<= this.chance ) ? true : false;
+	this.reRoll = function(){
 		rolls = Math.floor(Math.random() * (100 - 1 + 1) + 1);
-		this.available = ( (rolls<6)? true : false );
+		this.available = ( (rolls<=this.chance)? true : false );
 	}
 }
 
+function State(){
+	this.hospital = new Hospital();
+	this.family = new Family();
+	this.School = new School();
+}
 function Family(){
-	this.school = new School();
 	this.father = new Father();
 	this.mother = new Mother();
 }

@@ -1,6 +1,8 @@
 function Scene(Type,NAME){
 	//this is set by the scene manager, and will hold a reference to said manager
 	this.parent;
+	this.canvas;
+	this.context;
 	
 	this.name = NAME;
 
@@ -9,7 +11,7 @@ function Scene(Type,NAME){
     this.type =Type;
     
     //the Level Object, check the structures to get a rundown on this(coming soon)
-    this.GameWorld;
+    this.Level;
 
     //the Menu Object, check the structures to get a rundown on this(coming soon)
     this.TheMenu;
@@ -90,5 +92,17 @@ function Scene(Type,NAME){
 			case "MENU":{} break;
 			
 		}
+	}
+	this.addLevel = function(level){
+		this.Level = level;
+		level.parent = this;
+	}
+	this.addMenu = function(menu){
+		this.TheMenu = menu;
+		menu.parent = this;
+	}
+	this.addCut = function(cut){
+		this.Cinematic = cut;
+		cut.parent = this;
 	}
 }

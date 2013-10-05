@@ -22,6 +22,7 @@ var Cut = function(IMAGE,Duration,direction,Start,Target){
 }
 
 //create an array of cut objects, pass that in as the parameter when you make a cutscene
+//cutscene objects are put into the scene object
 var cutScene = function(Cuts){
 	this.Canvas = document.getElementById("simScreen");
 	this.ctx = this.Canvas.getContext('2d');
@@ -32,6 +33,9 @@ var cutScene = function(Cuts){
 	this.speed = 0;
 	this.x = 0;
 	this.y = 0;
+	
+	this.parent;
+	this.manager;
 	
 	this.update = function(){
 	console.log("YO DAWG");

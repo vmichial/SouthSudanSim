@@ -58,7 +58,9 @@ var SceneManager = function(can,con){
 	
 	//this adds the scene to the array
 	this.addScene = function(scene){
-		this.setParent(scene);
+		this.setParent(that);
+		scene.canvas = that.canvas;
+		scene.context = that.context;
 		this.scenes[this.numScenes++] = scene;
 	}
 	

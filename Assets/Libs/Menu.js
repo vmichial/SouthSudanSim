@@ -31,14 +31,16 @@ var Label = function(Parent, Text, fontSize, IMG, TextX,TextY,ImX,ImY){
 }
 //Creates a clickable button object with its parents, image object, draw x and y, width and height
 //Added new parameter to be the sceneName of the next scene when button is clicked
-var Button = function(Parent,img,Xdraw,Ydraw,Width, Height, NextString){
+var Button = function(Parent,img,Xdraw,Ydraw,Width, Height, NextString, Name){
+	this.name = Name;
 	var that = this;
 	this.xdraw = Xdraw;
 	this.ydraw = Ydraw;
 	this.w = Width;
 	this.h = Height;
 	this.parent = Parent;
-	this.ctx = Parent.context;
+	this.ctx = this.parent.context;
+	this.canvas = this.parent.context;
 	this.nextString = NextString;
 	
 	this.clicked = function(x,y){
@@ -53,6 +55,8 @@ var Button = function(Parent,img,Xdraw,Ydraw,Width, Height, NextString){
 var Menu = function(Parent,BGimages,Music,Buttons,Labels,NextString){
 	var that = this;
 	this.parent = Parent;
+	this.canvas = this.parent.canvas;
+	this.context = this.parent.context;
 	this.nextString = (!NextString) ? "END" : NextString ;
 	this.context = Parent.context;
 	this.FPS = 60;
@@ -64,6 +68,9 @@ var Menu = function(Parent,BGimages,Music,Buttons,Labels,NextString){
 	this.init = function() {
 		if (that.music) {
 			that.music.play();
+		}
+		for(var i; i<this.buttons.length;i++){
+			buttons[i].canvas=this.canvas;buttons[i].ctx=this.context;buttons[i].parent = that;
 		}
 		
 	}
