@@ -25,7 +25,7 @@ function Person() {
 	}
 }
 
-////Person is a base class. All peple inherit from it
+
 function Player(ParentObj){
 	this.parent = ParentObj;
 	this.__proto__ = new Person();
@@ -71,13 +71,35 @@ function Player(ParentObj){
 	}
 	this.advanceYear = function() {
 		this.age += 1;
-		if (this.schoolProgress >= 100) {
+		if (this.schoolProgress > 50) {
 			this.gradeLevel += 1;
 		}
 		this.schoolProgress = 0;
 	}
-	this.incProg = function(amt) {
-		this.schoolProgress += amt;
+	this.incProg = function() {
+		var quarterProg = 0;
+		if (this.atSchool) {
+			quarterProg += 10
+		}
+		for (var i = 0; i < this.parent.sib.length; i += 1) {
+			if (this.parent.sib[i].atSchool) {
+				quarterProg += 5;
+				break;
+			}
+		}
+		if (this.parent.parent.hasGoodTeacher) {
+			quarterProg += 10;
+		}
+		if (this.parent.parent.hasMats) {
+			quarterProg += 10;
+		}
+		if (this.parent.parent.hasBuilding) {
+			quarterProg += 5;
+		}
+		if (quarterProg > 25) {
+			 quarterProg = 25;
+		}
+		this.schoolProgress = quarterProg;
 	}	
 }
 //Father is a type of person with his own special abilities

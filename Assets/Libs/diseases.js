@@ -81,8 +81,12 @@ function Meningitis(ParentObj) {
 	this.effect = "You are suffering from the effect of meningitis."; //TODO
 	this.deathChance = 10; //TODO
 	this.duration = -1;
-	this.affectWork = true;
-	this.affectSchool = true;
+	if (this.affectWork) {
+		this.parent.atWork = false;
+	}
+	if (this.affectSchool) {
+		this.parent.atSchool = false;
+	}
 	this.name = "meningitis";
 	this.applyEffect = function() {
 		var roll = Math.floor(Math.random() * 101);
@@ -109,8 +113,12 @@ function Measles(ParentObj) {
 	this.effect = "You are suffering from the effect of measles."; //TODO
 	this.deathChance = 10; //TODO
 	this.duration = -1;
-	this.affectWork = true;
-	this.affectSchool = true;
+	if (this.affectWork) {
+		this.parent.atWork = false;
+	}
+	if (this.affectSchool) {
+		this.parent.atSchool = false;
+	}
 	this.name = "measles";
 	this.applyEffect = function() {
 		var roll = Math.floor(Math.random() * 101);
@@ -135,8 +143,12 @@ function SleepSick(ParentObj) {
 	this.effect = "You are suffering from the effect of African sleeping sickness."; //TODO
 	this.deathChance = 10; //TODO
 	this.duration = -1;
-	this.affectWork = true;
-	this.affectSchool = true;
+	if (this.affectWork) {
+		this.parent.atWork = false;
+	}
+	if (this.affectSchool) {
+		this.parent.atSchool = false;
+	}
 	this.name = "sleepSick";
 	this.applyEffect = function() {
 		var roll = Math.floor(Math.random() * 101);
@@ -189,6 +201,7 @@ function Diarrhea(ParentObj) {
 	this.duration = -1;
 	this.affectWork = false;
 	this.affectSchool = false;
+	if (this.parent.atWork)
 	this.name = "diarrhea";
 	this.applyEffect = function() {
 		var roll = Math.floor(Math.random() * 101);
