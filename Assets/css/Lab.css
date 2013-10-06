@@ -1,0 +1,17 @@
+﻿body {
+	font-family: Arial;
+	font-size: 14pt;
+	background-color: #000000;
+	color: #ffffff;
+	text-align:center;
+
+
+	background-image: url("../Images/Lab/Lab.png");
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+
+
+div {
+	white-space: nowrap;
+}
