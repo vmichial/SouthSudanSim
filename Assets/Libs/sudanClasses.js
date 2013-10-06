@@ -9,23 +9,58 @@ function Disease(ParentObj){
 	this.active = true;
 	//name of the disease
 	this.name = "Disease";
-	//The description says what the disease is
-	this.description = "You caught a disease";
 	//the Effect tells you what it causes to happen
-	this.effect = "You can only work twice and goto school once";
+	this.effect = null;
 	//chance, to be interpreted as a percent. how likely wll it kill
 	//you if you have it
-	this.DeathChance = 50;
+	this.deathChance = 50;
 	//the maximum amount of actions that can go toward work
 	//while you have the disease
-	this.canWork = false;
+	this.affectWork = true;
 	//maximum amount of actions you can put to school while 
 	//you have the disease
-	this.canSchool = false;
+	this.affectSchool = true;
 	//duration will determine how long it will last (in turns)
 	this.duration = 1;
+	this.treatable = true;
+}
+var numDisease = 10;
+
+//HepA, HepE, Typhoid, Diarrhea, malaria, dengue, sleepSick, shisto, rabies, meningitis
+function Meningitis(ParentObj) {
+	this.parent = ParentObj;
+	this.__proto__ = new Disease(this.parent);
+	//The description says what the disease is
+	this.description = "You are afflicted with meningococcal meningitis";
+	this.effect = "You are suffering from the effect of meningitis."; //TODO
+	this.deathChance = 10; //TODO
+	this.duration = -1;
+	this.affectWork = true;
+	this.affectSchool = true;
+	this.name = "meningitis";
+	this.applyEffect = function() {
+		var roll = Math.floor(Math.random() * 101);
+		console.log(roll);
+		if (roll <= this.deathChance) {
+			this.parent.canWork = false;
+			this.parent.canSchool = false;
+			this.parent.alive = false;
+		} else {
+			if(this.deathChance < 20) {
+				this.deathChance += 1;  //the longer you have it, the chance of it killing you is increased.
+			}
+		}
+	}
 }
 
+function contractDis(ParentObj) {
+	var roll = Math.floor(Math.random() * 101);
+	var chance = 20; //TODO
+	if (roll <= chance) {
+		if (false){}
+	}
+
+}
 //life events encompass getting pregnant, married, or killed
 //they exist always looming over the player. And every player 
 //comes stock with a lifeevent. So do the mothers, because well
@@ -69,7 +104,7 @@ function Marriage(ParentObj){
 //pregnant by your dirty *** teacher. Maybe its love, maybe
 //he's just a a******, regardless you are preggers and can't
 //goto school anymore. :( motherhod...
-function Preggers(ParentObj){
+function Pregnant(ParentObj){
 	this.parent = ParentObj;
 	this.__proto__ = new LifeEvent();
 	this.effect = "Your teacher has gotten you pregnant";
@@ -103,7 +138,21 @@ function ChildBirthDeath(ParentObj){
 	this.applyEffect = function(){
 		var roll = Math.floor(Math.random() * (100 - 1 + 1) + 1);
 		console.log(roll);
-		if(roll<=this.chance && this.active){this.parent.alive = false;}
+		if(roll<=this.chance && this.active){this.parent.alive = false; this.parent.canWork = false;}
+	}	
+}
+
+function DeadDad(ParentObj) {
+	this.parent = ParentObj;
+	this.__proto__ = new LifeEvent();
+	this.effect = "Your father died a few years ago.";
+	this.active = true;
+	this.minAge = 0;
+	this.chance = 50;  //TODO
+	this.applyEffect = function()  {
+		var roll = Math.floor(Math.random() * (100 - 1 + 1) + 1);
+		console.log(roll);
+		if(roll<=this.chance && this.active){this.parent.alive = false; this.parent.canWork = false;}
 	}	
 }
 
@@ -124,16 +173,17 @@ function Aid(ParentObj){
 
 ////Person is a base class. All peple inherit from it
 function Player(){
+	this.__proto__ = new Person();
 	//once that baby comes out... you ain't a child anymore
 	this.motherhood = false;
 	//you are married eh? ITS THE END!
 	this.married = false;
 	//if the family member is alive, yay
-	this.alive = true;
+	//this.alive = true;
 	//is the person capable of working
-	this.canWork = true;
+	//this.canWork = true;
 	//is the player capable of schooling
-	this.canSchool = true;	
+	//this.canSchool = true;	
 	//age can be a number between 5 and 60
 	this.age = 5;
 	//education is a number between 1 and 12 (inclusive) 
@@ -144,10 +194,14 @@ function Player(){
 	//the player will need to make diseases based on some die
 	//roll each time. also, every turn the player must roll
 	//on each disease and let them play out.
-	this.diseases = new Array();
+	//this.diseases = new Array();
 	//LifeEvents will affect people by chance. everyone has them, with a chance of it
 	//happening based in different parameters
-	this.lifeEvent = new Array();
+	//this.lifeEvent = new Array();
+	this.lifeEvents.push(new Pregnant(this));
+	this.lifeEvents.push(new Marriage(this));
+	this.lifeEvents[0].applyEffect();
+	this.lifeEvents[1].applyEffect();
 	//init is blank, it is here for initialization
 	this.init = function(){
 		this.married = false;
@@ -163,34 +217,52 @@ function Player(){
 	this.checkDiseases = function(){
 		
 	}
+	
 }
+
+function Person() {
+	this.alive = true;
+	this.canWork = true;
+	this.canSchool = true;
+	this.diseases = new Array();
+	this.lifeEvents = new Array();
+	this.update = function() {
+		for (var i = 0; i < this.lifeEvents.length; i += 1) {
+			this.lifeEvents[i].applyEffect();
+		}
+		for (var i = 0; i < this.diseases.length; i += 1) {
+			this.diseases[i].applyEffect();
+		}
+	}
+}
+
+
 
 //Father is a type of person with his own special abilities
 function Father(){
-	this.alive = true;
-	this.canWork = true;
+	this.__proto__ = new Person();
 	this.canSchool = false;
-	this.diseases = new Array();
-	this.lifeEvents = new Array();
+	this.lifeEvents.push(new DeadDad(this));
+	this.lifeEvents[0].applyEffect();
 }
 
 //Mother is a type of person with her own special abilities
 function Mother(){
-	this.alive = true;
-	this.canWork = true;
+	this.__proto__ = new Person();
 	this.canSchool = false;
-	this.diseases = new Array();
-	this.lifeEvents = new Array();
 	this.lifeEvents.push(new ChildBirthDeath(this));
 	this.lifeEvents[0].applyEffect();
 }
 
 function Sibling(){
-	this.alive = true;
-	this.canWork = true;
-	this.canSchool =true;
-	this.diseases = new Array();
-	this.lifeEvents = new Array();
+	this.__proto__ = new Person();
+	this.female = Math.random() < 0.5 ? true : false;
+	if (this.female) {
+		this.lifeEvents.push(new Pregnant(this));
+		this.lifeEvents.push(new Marriage(this));
+		this.lifeEvents[0].applyEffect();
+		this.lifeEvents[1].applyEffect();
+	}	
 }
 // the school is used for certai education bonuses
 //use roll to initialize the school randomly
@@ -246,6 +318,12 @@ function State(){
 function Family(){
 	this.father = new Father();
 	this.mother = new Mother();
+	this.sib = new Array();
+	var size = Math.floor(Math.random() * 4);
+	for (var i = 0; i < size; i += 1) {
+		this.sib.push(new Sibling());
+	}
+	this.girl = new Player();
 }
 
 function GameState(){
