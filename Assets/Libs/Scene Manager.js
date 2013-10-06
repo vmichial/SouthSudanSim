@@ -90,7 +90,7 @@ var SceneManager=function(){
 		this.getScene(this.current).step();
 	};
 	
-	this.draw=function(){
+	this.draw=function(ctx){
 		this.getScene(this.current).draw(ctx);
 	};
 	
