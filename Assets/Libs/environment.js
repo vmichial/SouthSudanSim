@@ -7,10 +7,12 @@ function Environment(scene) {
 	this.disasters = new Array();
 	this.quarter = 0;
 	this.first = true;
+	this.flooded = false;
+	this.droughted = false;
 	this.advQuarter = function() {
 		this.quarter = (this.quarter +  1) % 4;
 		if (this.quarter == 0 && !this.first) {
-			this.advYear();
+			this.family.girl.advYear();
 		}
 		this.first = false;
 		if (this.family.girl.gradeLevel == 9) {

@@ -34,7 +34,9 @@ function Drought(env) {
 		var roll = Math.floor(Math.random * 101);
 		if (roll < this.chance && this.parent.quarter == 1) {
 			this.__proto__.applyEffect();
-			
+			this.parent.droughted = true;
+		} else {
+			this.parent.droughted = false;
 		}
 	
 	}
@@ -54,8 +56,10 @@ function Flood(env) {
 			this.parent.school.available = false;
 			this.parent.school.hasBuilding = false;
 			this.parent.school.hasMats = false;
+			this.parent.flooded = true;
 		} else {
 			this.parent.school.available = true;
+			this.parent.flooded = false;
 		}
 	}
 

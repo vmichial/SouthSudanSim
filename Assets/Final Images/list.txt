@@ -1,0 +1,36 @@
+cowOld_Village.png
+cowSkull_Village.png
+cowYoung_Village.png
+credits.png
+death_Village.png
+diseases
+fatherMid_Village.png
+father_Village.png
+goat_Village.png
+list.txt
+mainCharacterMARRAIGE_Village (1).png
+mainCharacterMARRAIGE_Village.png
+mainCharacterMid_Village.png
+mainCharacterOld_forVillage.png
+mainCharacterPREGO_Village (1).png
+mainCharacterSmall_Village.png
+mainCharacter_Work.png
+mainCharacter_Work2.png
+MainVillage_Summer.png
+meat2_Village.png
+meat_Village.png
+newSchool.png
+oldSchool.png
+rainyMainVillage.png
+siblingOLD_Village.png
+siblingYoung_Village.png
+start.png
+stickteacher3.png
+suppliesFull_Village.png
+suppliesLow_Village.png
+suppliesMid_Village.png
+teacherNew_School.png
+Title.png
+winScreen.png
+work2.png
+WorkScene.png

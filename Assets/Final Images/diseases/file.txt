@@ -1,0 +1,8 @@
+.ai
+file.txt
+icon_diarrhea.png
+icon_hepA.png
+icon_malaria.png
+icon_measels.png
+icon_meningitis.png
+icon_sleep.png
