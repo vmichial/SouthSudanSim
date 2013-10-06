@@ -23,6 +23,19 @@ function Person() {
 			return false;
 		}	
 	}
+	this.gotoWork = function() {
+		this.atWork = true;
+	}
+	this.leaveWork = function () {
+		this.atWork = false;
+	}
+	this.gotoSchool = function() {
+		this.atSchool = true;
+	}
+	this.leaveSchool= function () {
+		this.atSchool = false;
+	}
+	
 }
 
 
@@ -143,7 +156,7 @@ function Family(ParentObj){
 	}
 	this.girl = new Player(this);
 	this.supply = 100;
-	
+	//called before disease and disaster
 	this.increaseSupply = function(){
 		//increase supply for family members at work
 		if(this.father.atWork)this.supply += 10;
@@ -158,7 +171,7 @@ function Family(ParentObj){
 			if(this.sib[i].atSchool && this.parent.school.feedStudents)this.supply += 5;
 		}
 	}
-	
+	//called before disease and disaster
 	this.decreaseSupply = function(){
 		//decrease supply for those at school
 		if(this.girl.atSchool)this.supply -= 5;
@@ -169,6 +182,25 @@ function Family(ParentObj){
 		if(this.girl.atSchool && this.parent.school.far){this.supply -= 5;}
 		for(var i = 0; i<this.sib.length; i++){
 			if(this.sib[i].atSchool && this.parent.school.far)this.supply -= 5;
+		}
+	}
+	this.treat = function(member) {
+		var treated = false;
+		if (member.diseases[0].treatable) {
+			if (this.parent.hospital.available) {
+				if (this.supply > 10) {
+					this.supply -= 10;
+					treated = true;
+				}
+			} else {
+				if (this.supply > 20) {
+					this.supply -= 20;
+					treated = true;
+				}
+			}
+			if (treated) {
+				member.diseases.pop();
+			}
 		}
 	}
 		

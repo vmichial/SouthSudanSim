@@ -22,6 +22,17 @@ function Disease(ParentObj){
 	//duration will determine how long it will last (in turns)
 	this.duration = 1;
 	this.treatable = true;
+	this.applyEffect = function() {
+		var roll = Math.floor(Math.random() * 101);
+		console.log(roll);
+		if (roll < this.deathChance) {
+			this.parent.canWork = false;
+			this.parent.canSchool = false;
+			this.parent.alive = false;
+			this.parent.atWork = false;
+			this.parent.atSchool = false;
+		} 
+	}
 }
 
 function contractDis(ParentObj) {
@@ -95,6 +106,8 @@ function Meningitis(ParentObj) {
 			this.parent.canWork = false;
 			this.parent.canSchool = false;
 			this.parent.alive = false;
+			this.parent.atWork = false;
+			this.parent.atSchool = false;
 		} else {
 			if(this.deathChance < 20) {
 				this.deathChance += 1;  //the longer you have it, the chance of it killing you is increased.
@@ -120,19 +133,7 @@ function Measles(ParentObj) {
 		this.parent.atSchool = false;
 	}
 	this.name = "measles";
-	this.applyEffect = function() {
-		var roll = Math.floor(Math.random() * 101);
-		console.log(roll);
-		if (roll <= this.deathChance) {
-			this.parent.canWork = false;
-			this.parent.canSchool = false;
-			this.parent.alive = false;
-		} else {
-			if(this.deathChance < 20) {
-				this.deathChance += 1;  //the longer you have it, the chance of it killing you is increased.
-			}
-		}
-	}
+	
 }
 
 function SleepSick(ParentObj) {
@@ -150,19 +151,7 @@ function SleepSick(ParentObj) {
 		this.parent.atSchool = false;
 	}
 	this.name = "sleepSick";
-	this.applyEffect = function() {
-		var roll = Math.floor(Math.random() * 101);
-		console.log(roll);
-		if (roll <= this.deathChance) {
-			this.parent.canWork = false;
-			this.parent.canSchool = false;
-			this.parent.alive = false;
-		} else {
-			if(this.deathChance < 20) {
-				this.deathChance += 1;  //the longer you have it, the chance of it killing you is increased.
-			}
-		}
-	}
+	
 }
 
 function Malaria(ParentObj) {
@@ -173,22 +162,14 @@ function Malaria(ParentObj) {
 	this.effect = "You are suffering from the effect of malaria."; //TODO
 	this.deathChance = 10; //TODO
 	this.duration = -1;
-	this.affectWork = true;
-	this.affectSchool = true;
-	this.name = "malaria";
-	this.applyEffect = function() {
-		var roll = Math.floor(Math.random() * 101);
-		console.log(roll);
-		if (roll <= this.deathChance) {
-			this.parent.canWork = false;
-			this.parent.canSchool = false;
-			this.parent.alive = false;
-		} else {
-			if(this.deathChance < 20) {
-				this.deathChance += 1;  //the longer you have it, the chance of it killing you is increased.
-			}
-		}
+	if (this.affectWork) {
+		this.parent.atWork = false;
 	}
+	if (this.affectSchool) {
+		this.parent.atSchool = false;
+	}
+	this.name = "malaria";
+	
 }
 
 function Diarrhea(ParentObj) {
@@ -201,21 +182,15 @@ function Diarrhea(ParentObj) {
 	this.duration = -1;
 	this.affectWork = false;
 	this.affectSchool = false;
+	if (this.affectWork) {
+		this.parent.atWork = false;
+	}
+	if (this.affectSchool) {
+		this.parent.atSchool = false;
+	}
 	if (this.parent.atWork)
 	this.name = "diarrhea";
-	this.applyEffect = function() {
-		var roll = Math.floor(Math.random() * 101);
-		console.log(roll);
-		if (roll <= this.deathChance) {
-			this.parent.canWork = false;
-			this.parent.canSchool = false;
-			this.parent.alive = false;
-		} else {
-			if(this.deathChance < 20) {
-				this.deathChance += 1;  //the longer you have it, the chance of it killing you is increased.
-			}
-		}
-	}
+	
 }
 
 function HepA(ParentObj) {
@@ -228,20 +203,14 @@ function HepA(ParentObj) {
 	this.duration = -1;
 	this.affectWork = false;
 	this.affectSchool = false;
-	this.name = "hepA";
-	this.applyEffect = function() {
-		var roll = Math.floor(Math.random() * 101);
-		console.log(roll);
-		if (roll <= this.deathChance) {
-			this.parent.canWork = false;
-			this.parent.canSchool = false;
-			this.parent.alive = false;
-		} else {
-			if(this.deathChance < 20) {
-				this.deathChance += 1;  //the longer you have it, the chance of it killing you is increased.
-			}
-		}
+	if (this.affectWork) {
+		this.parent.atWork = false;
 	}
+	if (this.affectSchool) {
+		this.parent.atSchool = false;
+	}
+	this.name = "hepA";
+	
 }
 
 function Dengal(ParentObj) {
@@ -252,20 +221,12 @@ function Dengal(ParentObj) {
 	this.effect = "You are suffering from the effect of dengal."; //TODO
 	this.deathChance = 10; //TODO
 	this.duration = -1;
-	this.affectWork = true;
-	this.affectSchool = true;
-	this.name = "dengal";
-	this.applyEffect = function() {
-		var roll = Math.floor(Math.random() * 101);
-		console.log(roll);
-		if (roll <= this.deathChance) {
-			this.parent.canWork = false;
-			this.parent.canSchool = false;
-			this.parent.alive = false;
-		} else {
-			if(this.deathChance < 20) {
-				this.deathChance += 1;  //the longer you have it, the chance of it killing you is increased.
-			}
-		}
+	if (this.affectWork) {
+		this.parent.atWork = false;
 	}
+	if (this.affectSchool) {
+		this.parent.atSchool = false;
+	}
+	this.name = "dengal";
+	
 }
