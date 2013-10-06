@@ -1,5 +1,25 @@
 //objects for sudan classes, diseases and lifeEvents
-
+function environment(scene) {
+	this.parent = scene;
+	this.school = new School();
+	this.hospital = new Hospital();
+	this.family = new Family(this);
+	this.disasters = new Array();
+	this.quarter = 0;
+	this.first = true;
+	this.advQuarter = function() {
+		this.quarter = (this.quarter +  1) % 4;
+		if (this.quarter == 0 && !this.first) {
+			this.advYear();
+		}
+		this.first = false;
+		if (this.family.girl.gradeLevel == 9) {
+			this.school.reRoll();
+		}
+	}
+	this.aid = new Array();
+	
+}
 
 // the school is used for certai education bonuses
 //use roll to initialize the school randomly

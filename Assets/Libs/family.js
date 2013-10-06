@@ -5,6 +5,7 @@ function Person() {
 	this.alive = true;
 	this.canWork = true;
 	this.canSchool = true;
+	this.age = 5;
 	this.diseases = new Array();
 	this.lifeEvents = new Array();
 	this.update = function() {
@@ -82,12 +83,15 @@ function Player(ParentObj){
 		this.age = 5;
 		this.education = 1;
 	}
-	this.advanceYear = function() {
+	this.advYear = function() {
 		this.age += 1;
 		if (this.schoolProgress > 50) {
 			this.gradeLevel += 1;
 		}
 		this.schoolProgress = 0;
+		for (var i = 0; i < this.parent.sib.length; i += 1) {
+			this.parent.sib[i].age += 1;
+		}
 	}
 	this.incProg = function() {
 		var quarterProg = 0;
@@ -137,10 +141,9 @@ function Sibling(ParentObj){
 	this.__proto__ = new Person();
 	this.female = Math.random() < 0.5 ? true : false;
 	if (this.female) {
-		this.lifeEvents.push(new Pregnant(this));
+		this.married = false;
 		this.lifeEvents.push(new Marriage(this));
 		this.lifeEvents[0].applyEffect();
-		this.lifeEvents[1].applyEffect();
 	}	
 }
 
@@ -203,5 +206,17 @@ function Family(ParentObj){
 			}
 		}
 	}
-		
+	this.update = function () {
+		this.girl.incProg();
+		this.increaseSupply();
+		this.decreaseSupply();
+		contractDisease(this.father);
+		contractDisease(this.mother);
+		for (var i = 0; i < this.sib.length; i += 1) {
+			contractDisease(this.sib[i]);
+		}
+		contractDisease(this.girl);
+		rollDisaster();
+		this.parent.advQuarter();
+	}
 }
