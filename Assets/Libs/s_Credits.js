@@ -44,10 +44,28 @@ function credits_init(){
 			var off=32;
 			ctx.fillStyle='#ffffff';
 			ctx.font='64px arial';
-			ctx.fillText('abc', this.pos.x+64, this.pos.y+(off+=100))
-			ctx.fillText('def', this.pos.x+64, this.pos.y+(off+=100))
-			ctx.fillText('abc', this.pos.x+64, this.pos.y+(off+=100))
-			ctx.fillText('', this.pos.x+180, this.pos.y+(off+=100))
+			
+			ctx.fillText('Alejandro Escanellas', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Alexis Liu', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Amanuel Gebreyesus', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Ania Lewakowski', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Edward Thang', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Ferissa Lasagna', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Francia Gracias', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Hasani Groce', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Jose Zepeda', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Joy Clayton', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Kristin Osborn', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Maximilian Bolling', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Michial Green II', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Nygel Aton', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Olabiyi Oyewumi', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Rory Savage', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Saki Wang', this.pos.x+32, this.pos.y+(off+=100))
+			ctx.fillText('Thomas Bolling', this.pos.x+32, this.pos.y+(off+=100))			
+
+			ctx.fillText('', this.pos.x+180, this.pos.y+(off+=100));
+
 			ctx.fillText('Special Thanks', this.pos.x+180, this.pos.y+(off+=100))
 			ctx.fillText('Buff Paul', this.pos.x+270, this.pos.y+(off+=100))
 			
