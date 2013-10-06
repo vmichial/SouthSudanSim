@@ -75,18 +75,12 @@ var SceneManager=function(){
 		if(this.current==undefined || this.current<0 || this._sceneArr.length<=this.current){ // Invalid range, revert
 			this.current=past;
 		}
-
+		
+		this.last=this.current;
 		return this.current;
 	}
-	this.selectPush=function(id){
-		if(typeof id!='number'&&typeof id!='string') throw (this.id+': select(id) parameter "id" must be a number or string; got a typeof('+id+')=='+typeof id); // DEBUG
-		var past=this.current;
-		if(typeof id=='number') this.current=id;
-		else this.current=this._sceneMap[id];
-		if(this.current==undefined || this.current<0 || this._sceneArr.length<=this.current){ // Invalid range, revert
-			this.current=past;
-		}
-
+	this.selectLast=function(){
+		this.current=this.last;
 		return this.current;
 	}
 	
