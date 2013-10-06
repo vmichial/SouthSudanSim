@@ -210,13 +210,38 @@ function Family(ParentObj){
 		this.girl.incProg();
 		this.increaseSupply();
 		this.decreaseSupply();
-		contractDisease(this.father);
-		contractDisease(this.mother);
-		for (var i = 0; i < this.sib.length; i += 1) {
-			contractDisease(this.sib[i]);
+		if (this.father.diseases.length == 0) {
+			contractDis(this.father);
+		} else {
+			this.father.diseases[0].applyEffect();
 		}
-		contractDisease(this.girl);
-		rollDisaster();
+		if (this.mother.diseases.length == 0) {
+			contractDis(this.mother);
+		} else {
+			this.mother.diseases[0].applyEffect();
+		}
+		for (var i = 0; i < this.sib.length; i += 1) {
+			if (this.sib[i].diseases.length == 0) {
+				contractDis(this.sib[i]);
+			} else {
+				this.sib[i].diseases[0].applyEffect();
+			}
+			if (this.sib[i].female) {
+				this.sib[i].lifeEvents[0].applyEffect();
+			}
+		}
+		if (this.girl.diseases.length == 0) {
+			contractDis(this.girl);
+		} else {
+			this.girl.diseases[0].applyEffect();
+		}
+		for (var i = 0; i < this.girl.lifeEvents.length; i += 1) {
+			this.girl.lifeEvents[i].applyEffect();
+		}
 		this.parent.advQuarter();
+		for (var i = 0; i < this.parent.disasters.length; i += 1) {
+			this.parent.disasters[i].applyEffect();
+		}
+
 	}
 }

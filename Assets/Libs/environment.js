@@ -1,5 +1,5 @@
 //objects for sudan classes, diseases and lifeEvents
-function environment(scene) {
+function Environment(scene) {
 	this.parent = scene;
 	this.school = new School();
 	this.hospital = new Hospital();
@@ -17,7 +17,12 @@ function environment(scene) {
 			this.school.reRoll();
 		}
 	}
-	this.aid = new Array();
+	this.disasters.push(new Drought(this));
+	this.disasters.push(new Flood(this));
+	this.disasters.push(new Aid(this));
+	this.disasters[0].applyEffect();
+	this.disasters[1].applyEffect();
+	this.disasters[2].applyEffect();
 	
 }
 
