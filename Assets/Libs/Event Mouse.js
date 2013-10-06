@@ -46,6 +46,7 @@ function mouseup(e) {
 	var which=e.which;
 	//  \/  \/  \/  \/
 
+	s_manager.mouseup();
 
 	//  /\  /\  /\  /\
 	mouse.down=false;

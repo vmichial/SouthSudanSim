@@ -96,6 +96,23 @@ var SceneManager=function(){
 		this.getScene(this.current).draw(ctx);
 	};
 	
+	
+	this.kbup=function(which){
+		for(var i=0; i<this._sceneArr.length; ++i){
+			var s=this._sceneArr[i];
+			if(s.kbup) s.kbup(which);
+		}
+	}
+	
+	this.mouseup=function(){
+		for(var i=0; i<this._sceneArr.length; ++i){
+			var s=this._sceneArr[i];
+			if(s.mouseup) s.mouseup();
+		}
+	}
+	
+	
+	
 	/*
 			Private methods
 	*/

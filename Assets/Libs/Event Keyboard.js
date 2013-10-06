@@ -4,6 +4,7 @@
 	var alt=e.altKey;
 	var key=e.keyCode;
 
+	s_manager.kbup(key);
 }
 
 function kbdown(e) {
