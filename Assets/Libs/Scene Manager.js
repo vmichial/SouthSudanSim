@@ -47,7 +47,8 @@ var SceneManager=function(){
 		
 		
 	}
-
+	
+	
 	// Scene management
 	this.addScene=function(scene) {
 		if(typeof scene!='object') throw (this.id+': addScene(scene) parameter "scene" must be a class Scene'); // DEBUG
@@ -97,10 +98,10 @@ var SceneManager=function(){
 	};
 	
 	
-	this.kbup=function(which){
+	this.keyup=function(which){
 		for(var i=0; i<this._sceneArr.length; ++i){
 			var s=this._sceneArr[i];
-			if(s.kbup) s.kbup(which);
+			if(s.keyup) s.keyup(which);
 		}
 	}
 	

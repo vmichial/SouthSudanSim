@@ -24,6 +24,13 @@ function titlemenu_init(){
 	ent_start.scale={x:.5, y:.5};
 	
 	
+	// Next scene transition
+	this.next=function(){
+		this.nextID='theTrail';
+			console.log(this.nextID)
+
+	}
+
 	
 	// Bind events
 	this.keyup=titlemenu_keyup;
@@ -40,5 +47,5 @@ function titlemenu_keyup(which){
 
 function titlemenu_mouseup(){
 	var hit=this.hitPos(mouse, this.pos, this.scale);
-	console.log(hit)
+	if(-1<hit) this.next();
 }
