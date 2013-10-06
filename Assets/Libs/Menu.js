@@ -31,7 +31,7 @@ var Label = function(Parent, Text, fontSize, IMG, TextX,TextY,ImX,ImY){
 }
 //Creates a clickable button object with its parents, image object, draw x and y, width and height
 //Added new parameter to be the sceneName of the next scene when button is clicked
-var Button = function(Parent,img,Xdraw,Ydraw,Width, Height, NextString, Name){
+function Button(Parent,img,Xdraw,Ydraw,Width, Height, NextString, Name){
 	this.name = Name;
 	var that = this;
 	this.xdraw = Xdraw;
