@@ -1,21 +1,44 @@
-//Remember the variable gameManager is defined and ready to use.
-var Lhospital = new Hospital();
-//Lhospital.reRoll();
-console.log(Lhospital);
+/*
+	this simulation will work in this way, you init the gameSimulation
+	which deletes the gamestates and deletes the 
 
-var school = new School();
-console.log(school);
+*/
 
-var player1 = new Player();
-player1.init();
-console.log(player1);
-
-//var ballAndChain = new Marriage(player1);
-//console.log(ballAndChain);
-
-var mommy = new Mother();
-console.log(mommy);
-
-
-var daddy = new Father();
-console.log(daddy);
+var mouse = {x:126,y:200};
+function gameSimulation(){
+	this.manager;
+	this.id = 'theTrail';
+	this.warrap = new Environment();
+	
+	
+	this.init = function(){
+	
+	}
+	
+	//this will make the manager goto next scene.... this.manager.select('id');
+	//this.manager.selectLast() will make the manager goto the last scene
+	this.environment = new Environment(this);
+	this.gameStates = {
+		first : true,
+		choose 	: false,
+		roll	: false,
+		explain	: false		
+	}
+	
+	this.keyup = function(which){
+		if(this.gameStates.choose && which==13){
+		this.gameStates.choose = false;
+		this.gameStates.roll = true;
+		}
+	}
+	
+	this.mouseup = function(){
+		
+	}
+	this.update = function(){
+	
+	}
+	this.draw = function(ctx){
+		
+	}
+}
