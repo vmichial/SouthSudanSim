@@ -7,7 +7,7 @@ $(document).ready(function(){
 	setInterval(function(){
 		s_manager.update();
 		s_manager.draw(ctx);
-	}, 42);
+	}, 1000/g_fpsEngine);
 	
 	// IO Events
 	$(canvas).on('mousemove', mousemove);

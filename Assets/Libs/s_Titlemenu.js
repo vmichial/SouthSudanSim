@@ -23,29 +23,34 @@ function titlemenu_init(){
 	ent_start.pos={x:canvas.width*4/5, y:canvas.height*3/4};
 	ent_start.scale={x:.5, y:.5};
 	
+	this.vel=64;
 	
 	// Next scene transition
 	this.next=function(){
-		this.nextID='theTrail';
-			console.log(this.nextID)
-
+		// Logic to select the correct scene
+		this.nextID='credits';
 	}
-
+	
+	this.onStep=function(){
+		if(this.nextID){
+			var dest=this.move({x:canvas.width, y:0});
+			if(dest){
+				this.translate({x:0, y:0});
+				this.manager.select(this.nextID);
+				this.nextID=undefined;
+			}
+		}
+	}
+	this.onDraw=function(ctx, adjPos, scaleMul){
+		ctx.fillStyle='#000000';
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		this.drawDefault(ctx, adjPos, scaleMul);
+	}
 	
 	// Bind events
-	this.keyup=titlemenu_keyup;
 	this.mouseup=titlemenu_mouseup;
 }
 
-function titlemenu_keyup(which){
-	switch(which){
-		case 13: // Enter
-		case ' '.charCodeAt(0): // Space
-			this.next();
-	}
-}
-
 function titlemenu_mouseup(){
-	var hit=this.hitPos(mouse, this.pos, this.scale);
-	if(-1<hit) this.next();
+	this.next();
 }

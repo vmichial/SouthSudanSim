@@ -32,7 +32,7 @@ var SceneManager=function(){
 		ctx=canvas.getContext('2d');
 		
 		
-		var makeScene=function(id, func){
+		this.makeScene=function(id, func){
 			s_scene=new Scene(id);
 			s_scene.manager=this;
 			
@@ -43,7 +43,9 @@ var SceneManager=function(){
 		}
 		
 		// Title screen
-		this.addScene(makeScene('titlemenu', titlemenu_init));
+		this.addScene(this.makeScene('titlemenu', titlemenu_init));
+		// Credits screen
+		this.addScene(this.makeScene('credits', credits_init));
 		
 		
 	}
@@ -76,7 +78,7 @@ var SceneManager=function(){
 		if(typeof id=='number') this.current=id;
 		else this.current=this._sceneMap[id];
 		if(this.current==undefined || this.current<0 || this._sceneArr.length<=this.current){ // Invalid range, revert
-			this.current=past;
+			throw (this.id+': select(id) parameter "id" was not found'); // DEBUG
 		}
 		
 		this.last=this.current;
