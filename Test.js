@@ -3,10 +3,10 @@ var s_manager;
 $(document).ready(function(){
 	s_manager=new SceneManager();
 	s_manager.init();
-return;	
+	
 	setInterval(function(){
-		s_titlemenu.step();
-		s_titlemenu.draw(ctx);
+		s_manager.update();
+		s_manager.draw(ctx);
 	}, 42);
 	
 	// IO Events
@@ -18,14 +18,3 @@ return;
 	$('body').on('keydown', kbdown);
 });
 
-function titlemenu_init(){
-	var ent=new Entity('p45');
-	var tex=new Texture('moar', 'menuMoreOff');
-	
-	this.addEnt(ent);
-	ent.addTex(tex);
-	ent.onStep=function(){
-		var hit=this.hitPos(mouse);
-		console.log(hit)
-	}
-}

@@ -42,8 +42,10 @@ var SceneManager=function(){
 			return s_scene;
 		}
 		
+		// Title screen
 		this.addScene(makeScene('titlemenu', titlemenu_init));
-		this.addScene(makeScene('test2', titlemenu_init));
+		
+		
 	}
 
 	// Scene management
