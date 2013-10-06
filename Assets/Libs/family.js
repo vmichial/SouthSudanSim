@@ -1,14 +1,7 @@
-function Family(){
-	this.father = new Father();
-	this.mother = new Mother();
-	this.sib = new Array();
-	var size = Math.floor(Math.random() * 4);
-	for (var i = 0; i < size; i += 1) {
-		this.sib.push(new Sibling());
-	}
-	this.girl = new Player();
-}
 function Person() {
+	var that = this;
+	this.atWork = false;
+	this.atSchool = false;
 	this.alive = true;
 	this.canWork = true;
 	this.canSchool = true;
@@ -21,6 +14,7 @@ function Person() {
 		for (var i = 0; i < this.diseases.length; i += 1) {
 			this.diseases[i].applyEffect();
 		}
+		contractDis(that);
 	}
 	this.hasDisease = function() {
 		if (this.diseases.length > 0) {
@@ -32,7 +26,8 @@ function Person() {
 }
 
 ////Person is a base class. All peple inherit from it
-function Player(){
+function Player(ParentObj){
+	this.parent = ParentObj;
 	this.__proto__ = new Person();
 	//once that baby comes out... you ain't a child anymore
 	this.motherhood = false;
@@ -48,7 +43,7 @@ function Player(){
 	this.age = 5;
 	//education is a number between 1 and 12 (inclusive) 
 	//it tells grade level
-	this.education = 1;
+	this.gradeLevel = 1;
 	//progress goes from [0,100] for how much schooling done
 	this.schoolProgress = 0;
 	//the player will need to make diseases based on some die
@@ -74,13 +69,20 @@ function Player(){
 		this.age = 5;
 		this.education = 1;
 	}
-	this.checkDiseases = function(){
-		
+	this.advanceYear = function() {
+		this.age += 1;
+		if (this.schoolProgress >= 100) {
+			this.gradeLevel += 1;
+		}
+		this.schoolProgress = 0;
 	}
-	
+	this.incProg = function(amt) {
+		this.schoolProgress += amt;
+	}	
 }
 //Father is a type of person with his own special abilities
-function Father(){
+function Father(ParentObj){
+	this.parent = ParentObj;
 	this.__proto__ = new Person();
 	this.canSchool = false;
 	this.lifeEvents.push(new DeadDad(this));
@@ -88,13 +90,15 @@ function Father(){
 }
 
 //Mother is a type of person with her own special abilities
-function Mother(){
+function Mother(ParentObj){
+	this.parent = ParentObj;
 	this.__proto__ = new Person();
 	this.canSchool = false;
 	this.lifeEvents.push(new ChildBirthDeath(this));
 	this.lifeEvents[0].applyEffect();
 }
-function Sibling(){
+function Sibling(ParentObj){
+	this.parent = ParentObj;
 	this.__proto__ = new Person();
 	this.female = Math.random() < 0.5 ? true : false;
 	if (this.female) {
@@ -103,4 +107,47 @@ function Sibling(){
 		this.lifeEvents[0].applyEffect();
 		this.lifeEvents[1].applyEffect();
 	}	
+}
+
+function Family(ParentObj){
+	this.parent = ParentObj;
+	var that = this;
+	this.father = new Father(this);
+	this.mother = new Mother(this);
+	this.sib = new Array();
+	var size = Math.floor(Math.random() * 4);
+	for (var i = 0; i < size; i += 1) {
+		this.sib.push(new Sibling(this));
+	}
+	this.girl = new Player(this);
+	this.supply = 100;
+	
+	this.increaseSupply = function(){
+		//increase supply for family members at work
+		if(this.father.atWork)this.supply += 10;
+		if(this.mother.atWork)this.supply += 10;
+		if(this.girl.atWork)this.supply += 10;
+		for(var i = 0; i<this.sib.length; i++){
+			if(this.sib[i].atWork)this.supply += 10;
+		}
+		//increase the supply for family members at a school with food
+		if(this.girl.atSchool && this.parent.school.feedStudents){this.supply+=5;}
+		for(var i = 0; i<this.sib.length; i++){
+			if(this.sib[i].atSchool && this.parent.school.feedStudents)this.supply += 5;
+		}
+	}
+	
+	this.decreaseSupply = function(){
+		//decrease supply for those at school
+		if(this.girl.atSchool)this.supply -= 5;
+		for(var i = 0; i<this.sib.length; i++){
+			if(this.sib[i].atSchool)this.supply -= 5;
+		}
+		//increase the supply for family members at a school with food
+		if(this.girl.atSchool && this.parent.school.far){this.supply -= 5;}
+		for(var i = 0; i<this.sib.length; i++){
+			if(this.sib[i].atSchool && this.parent.school.far)this.supply -= 5;
+		}
+	}
+		
 }
