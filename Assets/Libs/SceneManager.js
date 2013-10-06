@@ -43,7 +43,7 @@ var SceneManager = function(can,con){
 	//loop that shows how much of the assets are loaded.
 	var loadLoop;
 	this.loadImage= new Image();
-	this.loadImage.src = "loadingScreen.png";
+	this.loadImage.src = "Assets/Images/tempLoadingScreen.png";
 	
 	//gameloop is for adding a setinterval. The game loop willrun
 	//the functions from whatever scene is running.
