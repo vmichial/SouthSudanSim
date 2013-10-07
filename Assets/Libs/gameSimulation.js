@@ -91,7 +91,7 @@ function gameSimulation(){
 	that.keyup = function(which){
 		if(that.gameStates.first && which.keyCode == 32){
 			that.gameStates.first = false;
-			that.GameStates.choose = true;
+			that.gameStates.choose = true;
 			that.firstTimer = 0;
 		}
 		if(that.gameStates.choose && which.keyCode ==13){
