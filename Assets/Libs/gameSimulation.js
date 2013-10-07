@@ -70,7 +70,7 @@ function gameSimulation(){
 	this.ctx = this.canvas.getContext('2d');
 	
 	this.firstTimer = 0;
-	this.firstMax = 5;
+	this.firstMax = 20;
 	this.explainTimer = 0;
 	this.explainMax = 20;
 	this.init = function(){
@@ -89,6 +89,11 @@ function gameSimulation(){
 	}
 	
 	that.keyup = function(which){
+		if(that.gameStates.first && which.keyCode == 32){
+			that.gameStates.first = false;
+			that.GameStates.choose = true;
+			that.firstTimer = 0;
+		}
 		if(that.gameStates.choose && which.keyCode ==13){
 			var roll = Math.floor(Math.random() * 101);
 			for (var i = 0; i < that.warrap.family.sib.length; i += 1) {
