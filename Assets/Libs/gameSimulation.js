@@ -85,12 +85,12 @@ function gameSimulation(){
 	
 	that.keyup = function(which){
 		console.log(which);
-		if(that.gameStates.first && which.keyCode == 32){
+		if(that.gameStates.first && which==32){
 			that.gameStates.first = false;
 			that.gameStates.choose = true;
 			that.firstTimer = 0;
 		}
-		if(that.gameStates.choose && which.keyCode ==13){
+		if(that.gameStates.choose && which==13){
 			var roll = Math.floor(Math.random() * 101);
 			for (var i = 0; i < that.warrap.family.sib.length; i += 1) {
 				if (roll < 50) {
