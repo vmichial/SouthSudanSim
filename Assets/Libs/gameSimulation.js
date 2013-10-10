@@ -4,6 +4,7 @@
 
 */
 
+var warrap; // Whats warrap?
 function gameSimulation(){
 	this.id = 'theTrail';
 	this.manager;
@@ -61,13 +62,13 @@ function gameSimulation(){
 	this.init = function(){
 		// Reference problem: this refers to the obect "init", rather than the parent
 
-		this.firstTimer = 0;
-		this.firstMax = 5;
-		this.explainTimer = 0;
-		this.explainMax = 20;
+		warrap.firstTimer = 0;
+		warrap.firstMax = 5;
+		warrap.explainTimer = 0;
+		warrap.explainMax = 20;
 		
-		this.environment = new Environment(this);
-		this.gameStates = {
+		warrap.environment = new Environment(warrap);
+		warrap.gameStates = {
 			first : true,
 			choose 	: false,
 			roll	: false,
@@ -160,7 +161,8 @@ function gameSimulation(){
 			this.gameStates.endCase = false;
 			this.gameStates.choose = true;
 		}
-	} this.step=update; // Lazy alias, due to code merge
+	}
+	this.step=this.update; // Lazy alias, due to code merge
 	this.draw = function(ctx){
 		if(this.gameStates.first){
 			var startY = 60;
