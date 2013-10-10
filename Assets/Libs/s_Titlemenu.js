@@ -28,7 +28,7 @@ function titlemenu_init(){
 	// Next scene transition
 	this.next=function(){
 		// Logic to select the correct scene
-		this.nextID='credits';
+		this.nextID='theTrail';
 	}
 	
 	this.onStep=function(){
@@ -38,6 +38,7 @@ function titlemenu_init(){
 				this.translate({x:0, y:0});
 				this.manager.select(this.nextID);
 				this.nextID=undefined;
+				warrap.init();
 			}
 		}
 	}

@@ -46,8 +46,10 @@ var SceneManager=function(){
 		this.addScene(this.makeScene('titlemenu', titlemenu_init));
 		// Credits screen
 		this.addScene(this.makeScene('credits', credits_init));
-		
-		
+		// Levels
+		var warrap = new gameSimulation();
+		warrap.parent=this;
+		this.addScene(warrap);
 	}
 	
 	
@@ -101,17 +103,13 @@ var SceneManager=function(){
 	
 	
 	this.keyup=function(which){
-		for(var i=0; i<this._sceneArr.length; ++i){
-			var s=this._sceneArr[i];
-			if(s.keyup) s.keyup(which);
-		}
+		var s=this._sceneArr[this.current];
+		if(s.keyup) s.keyup(which);
 	}
 	
 	this.mouseup=function(){
-		for(var i=0; i<this._sceneArr.length; ++i){
-			var s=this._sceneArr[i];
-			if(s.mouseup) s.mouseup();
-		}
+		var s=this._sceneArr[this.current];
+		if(s.mouseup) s.mouseup();
 	}
 	
 	

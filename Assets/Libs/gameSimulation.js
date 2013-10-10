@@ -4,9 +4,8 @@
 
 */
 
+var warrap;
 
-
-var mouse = {x:126,y:200};
 function gameSimulation(){
 	var that = this;
 	this.manager;
@@ -66,15 +65,34 @@ function gameSimulation(){
 	deathImg[0] = document.getElementById("grim0");
 	deathImg[1] = document.getElementById("skull");
 	var goat = document.getElementById("goat0");
-	this.canvas = document.getElementById('simScreen');
-	this.ctx = this.canvas.getContext('2d');
 	
 	this.firstTimer = 0;
 	this.firstMax = 20;
 	this.explainTimer = 0;
 	this.explainMax = 20;
+	this.environment = new Environment(this);
+	this.gameStates = {
+		first : true,
+		choose 	: false,
+		roll	: false,
+		explain	: false,
+		endCase : false
+	}
+
 	this.init = function(){
-	
+		this.firstTimer = 0;
+		this.firstMax = 5;
+		this.explainTimer = 0;
+		this.explainMax = 20;
+		
+		this.environment = new Environment(this);
+		this.gameStates = {
+			first : true,
+			choose 	: false,
+			roll	: false,
+			explain	: false,
+			endCase : false
+		}
 	}
 	
 	//this will make the manager goto next scene.... this.manager.select('id');
@@ -89,6 +107,7 @@ function gameSimulation(){
 	}
 	
 	that.keyup = function(which){
+		console.log(which);
 		if(that.gameStates.first && which.keyCode == 32){
 			that.gameStates.first = false;
 			that.gameStates.choose = true;
@@ -142,7 +161,7 @@ function gameSimulation(){
 			that.gameStates.endCase = true;
 		}
 	}
-	this.update = function(){
+	this.step = function(){
 		if(this.gameStates.first){
 			if(this.firstTimer >= 60*this.firstMax){
 				this.gameStates.first = false;
@@ -175,68 +194,68 @@ function gameSimulation(){
 	this.draw = function(ctx){
 		if(this.gameStates.first){
 			var startY = 60;
-			var x = (this.canvas.width/2)-500;
-			this.ctx.font ='45px Arial';
-			this.ctx.fillStyle = 'black';
-			this.ctx.fillRect(0,0,1024,768);
-			this.ctx.fillStyle = 'white';
+			var x = (canvas.width/2)-500;
+			ctx.font ='45px Arial';
+			ctx.fillStyle = 'black';
+			ctx.fillRect(0,0,1024,768);
+			ctx.fillStyle = 'white';
 			if(!this.warrap.family.mother.alive){
-				this.ctx.fillText("Your mother died bearing you as a child...", x,startY);
+				ctx.fillText("Your mother died bearing you as a child...", x,startY);
 				startY+=60
 			}			
 			if(!this.warrap.family.father.alive){
-				this.ctx.fillText("Your Father died when you were younger....",x,startY);
+				ctx.fillText("Your Father died when you were younger....",x,startY);
 				startY+=60;
 			}
 			
-			this.ctx.fillText("You have "+(this.warrap.family.sib.length)+ ((this.warrap.family.sib.length==1)? " sibling." : " siblings."),x,startY);
+			ctx.fillText("You have "+(this.warrap.family.sib.length)+ ((this.warrap.family.sib.length==1)? " sibling." : " siblings."),x,startY);
 			startY+=60;
 			if(!this.warrap.hospital.available){
-				this.ctx.fillText("Your Area does not have a hospital nearby...", x , startY);
+				ctx.fillText("Your Area does not have a hospital nearby...", x , startY);
 				startY+=60;
 			}
 			if(this.warrap.school.far){
-				this.ctx.fillText("Your School is a long walk away...", x , startY);
+				ctx.fillText("Your School is a long walk away...", x , startY);
 				startY+=60;
 			}
 			if(!this.warrap.school.hasMats){
-				this.ctx.fillText("Your School doesn't have adequate supplies...", x , startY);
+				ctx.fillText("Your School doesn't have adequate supplies...", x , startY);
 				startY+=60;
 			}
 			if(!this.warrap.school.hasBuilding){
-				this.ctx.fillText("Your School does not have a building...", x , startY);
+				ctx.fillText("Your School does not have a building...", x , startY);
 				startY+=60;
 			}
 			if(!this.warrap.school.hasGoodTeacher){
-				this.ctx.fillText("Your School doesn't have a well educated teacher...", x , startY);
+				ctx.fillText("Your School doesn't have a well educated teacher...", x , startY);
 				startY+=60;
 			}
 			if(!this.warrap.school.feedStudents){
-				this.ctx.fillText("Your School does not feed it's students...", x , startY);
+				ctx.fillText("Your School does not feed it's students...", x , startY);
 				startY+=60;
 			}						
 		}
 		else if(this.gameStates.choose){
-			this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+			ctx.clearRect(0,0,canvas.width,canvas.height);
 			if (this.warrap.flooded) {
-					this.ctx.drawImage(villageImg[1], 0, 0, this.canvas.width, this.canvas.height);
+					ctx.drawImage(villageImg[1], 0, 0, canvas.width, canvas.height);
 			} else if (this.warrap.droughted) {
-					this.ctx.drawImage(workImg[0], 0, 0, this.canvas.width, this.canvas.height);
+					ctx.drawImage(workImg[0], 0, 0, canvas.width, canvas.height);
 			} else {
-					this.ctx.drawImage(villageImg[0], 0, 0, this.canvas.width, this.canvas.height);
+					ctx.drawImage(villageImg[0], 0, 0, canvas.width, canvas.height);
 			}
 		}
 		else if(this.gameStates.roll){
-			this.ctx.fillStyle = 'green';
-			this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+			ctx.fillStyle = 'green';
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
 		}
 		else if(this.gameStates.explain){
-			this.ctx.fillStyle = 'black';
-			this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+			ctx.fillStyle = 'black';
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
 		}
 		else if(this.gameStates.endCase){
-			this.ctx.fillStyle = 'blue';
-			this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+			ctx.fillStyle = 'blue';
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
 		}
 	}
 }
