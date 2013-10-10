@@ -47,6 +47,9 @@ function gameSimulation(){
 	this.firstMax = 20;
 	this.explainTimer = 0;
 	this.explainMax = 20;
+
+	//this will make the manager goto next scene.... this.manager.select('id');
+	//this.manager.selectLast() will make the manager goto the last scene
 	this.environment = new Environment(this);
 	this.gameStates = {
 		first : true,
@@ -55,8 +58,9 @@ function gameSimulation(){
 		explain	: false,
 		endCase : false
 	}
-
 	this.init = function(){
+		// Reference problem: this refers to the obect "init", rather than the parent
+
 		this.firstTimer = 0;
 		this.firstMax = 5;
 		this.explainTimer = 0;
@@ -70,17 +74,6 @@ function gameSimulation(){
 			explain	: false,
 			endCase : false
 		}
-	}
-	
-	//this will make the manager goto next scene.... this.manager.select('id');
-	//this.manager.selectLast() will make the manager goto the last scene
-	this.environment = new Environment(this);
-	this.gameStates = {
-		first : true,
-		choose 	: false,
-		roll	: false,
-		explain	: false,
-		endCase : false
 	}
 	
 	that.keyup = function(which){
