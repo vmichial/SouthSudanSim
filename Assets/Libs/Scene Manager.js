@@ -48,7 +48,7 @@ var SceneManager=function(){
 		this.addScene(this.makeScene('credits', credits_init));
 		// Levels
 		warrap = new gameSimulation();
-		warrap.parent=s_scene;
+		warrap.parent=s_manager;
 		this.addScene(warrap);
 	}
 	
