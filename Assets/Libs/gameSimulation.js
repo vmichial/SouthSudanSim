@@ -138,7 +138,7 @@ function gameSimulation(){
 			that.gameStates.endCase = true;
 		}
 	}
-	this.step = function(){
+	this.update = function(){
 		if(this.gameStates.first){
 			if(this.firstTimer >= 60*this.firstMax){
 				this.gameStates.first = false;
@@ -167,7 +167,7 @@ function gameSimulation(){
 			this.gameStates.endCase = false;
 			this.gameStates.choose = true;
 		}
-	}
+	} this.step=update; // Lazy alias, due to code merge
 	this.draw = function(ctx){
 		if(this.gameStates.first){
 			var startY = 60;
@@ -236,10 +236,3 @@ function gameSimulation(){
 		}
 	}
 }
-var warrap = new gameSimulation();
-
-function play(){
-	warrap.update();
-	warrap.draw();
-}
-var interval = setInterval(play,1000/60);
