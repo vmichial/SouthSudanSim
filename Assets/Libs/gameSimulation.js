@@ -4,8 +4,6 @@
 
 */
 
-var warrap;
-
 function gameSimulation(){
 	var that = this;
 	this.manager;
@@ -260,9 +258,6 @@ function gameSimulation(){
 	}
 }
 var warrap = new gameSimulation();
-warrap.canvas.addEventListener('mouseup',warrap.mouseup,false);
-var body = document.getElementById("body");
-body.addEventListener('keyup', warrap.keyup, false);
 
 function play(){
 	warrap.update();
