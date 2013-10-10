@@ -5,64 +5,43 @@
 */
 
 function gameSimulation(){
-	var that = this;
-	this.manager;
 	this.id = 'theTrail';
+	this.manager;
 	this.warrap = new Environment();
-	console.log(this.warrap);
+	
+	var that = this;
+	
+	// ▼ Image initialization
 	var supplyImg = new Array();
-	for (var i = 0; i < 3; i += 1) {
-		supplyImg[i] = document.getElementById("supply" + i);
-	}
+	for (var i = 0; i < 3; i += 1) supplyImg[i] = document.getElementById("supply" + i);
 	var girlImg = new Array();
-	for (var i = 0; i < 8; i += 1) {
-		girlImg[i] = document.getElementById("girl" + i);
-	}
+	for (var i = 0; i < 8; i += 1) girlImg[i] = document.getElementById("girl" + i);
 	var sibImg = new Array();
-	for (var i = 0; i < 2; i += 1) {
-		sibImg[i] = document.getElementById("sib" + i);
-	}
+	for (var i = 0; i < 2; i += 1) sibImg[i] = document.getElementById("sib" + i);
 	var motherImg = new Array();
 	var villageImg = new Array();
-	for (var i = 0; i < 2; i += 1) {
-		villageImg[i] = document.getElementById("village" + i);
-	}
+	for (var i = 0; i < 2; i += 1) villageImg[i] = document.getElementById("village" + i);
 	var fatherImg = new Array();
-	for (var i = 0; i < 2; i += 1) {
-		fatherImg[i] = document.getElementById("father" + i);
-	}
+	for (var i = 0; i < 2; i += 1) fatherImg[i] = document.getElementById("father" + i);
 	var disIcon = new Array();
-	for (var i = 0; i < 6; i += 1) {
-		disIcon[i] = document.getElementById("dis" + i);
-	}
+	for (var i = 0; i < 6; i += 1) disIcon[i] = document.getElementById("dis" + i);
 	var workImg = new Array();
-	for (var i = 0; i < 2; i += 1) {
-		workImg[i] = document.getElementById("work" + i);
-	}
+	for (var i = 0; i < 2; i += 1) workImg[i] = document.getElementById("work" + i);
 	var schoolImg = new Array();
-	for (var i = 0; i < 2; i += 1) {
-		schoolImg[i] = document.getElementById("school" + i);
-	}
+	for (var i = 0; i < 2; i += 1) schoolImg[i] = document.getElementById("school" + i);
 	var cowImg = new Array();
-	for (var i = 0; i < 2; i += 1) {
-		cowImg[i] = document.getElementById("cow" + i);
-	}
+	for (var i = 0; i < 2; i += 1) cowImg[i] = document.getElementById("cow" + i);
 	var meatImg = new Array();
-	for (var i = 0; i < 2; i += 1) {
-		meatImg[i] = document.getElementById("meat" + i);
-	}
+	for (var i = 0; i < 2; i += 1) meatImg[i] = document.getElementById("meat" + i);
 	var credImg = new Array();
-	for (var i = 0; i < 1; i += 1) {
-		credImg[i] = document.getElementById("credit" + i);
-	}
+	for (var i = 0; i < 1; i += 1) credImg[i] = document.getElementById("credit" + i);
 	var teachImg = new Array();
-	for (var i = 0; i < 2; i += 1) {
-		teachImg[i] = document.getElementById("teach" + i);
-	}
+	for (var i = 0; i < 2; i += 1) teachImg[i] = document.getElementById("teach" + i);
 	var deathImg = new Array();
 	deathImg[0] = document.getElementById("grim0");
 	deathImg[1] = document.getElementById("skull");
 	var goat = document.getElementById("goat0");
+	// ▲ Image initialization
 	
 	this.firstTimer = 0;
 	this.firstMax = 20;
