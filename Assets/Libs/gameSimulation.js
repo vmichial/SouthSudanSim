@@ -79,42 +79,52 @@ function gameSimulation(){
 	
 	that.keyup = function(which){
 		console.log(which);
-		if(that.gameStates.first && which==32){
-			that.gameStates.first = false;
-			that.gameStates.choose = true;
-			that.firstTimer = 0;
-		}
-		if(that.gameStates.choose && which==13){
-			var roll = Math.floor(Math.random() * 101);
-			for (var i = 0; i < that.warrap.family.sib.length; i += 1) {
-				if (roll < 50) {
-					that.warrap.family.sib[i].gotoWork();
-				} else {
-					that.warrap.family.sib[i].gotoSchool();
-				}
-			}
-			roll = Math.floor(Math.random() * 101);
-			if (that.warrap.family.father.alive) {
-				if (roll < 50) {
-					that.warrap.family.father.gotoWork();
-				} 
-			}
-			roll = Math.floor(Math.random() * 101);
-			if (that.warrap.family.mother.alive) {
-				if (roll < 50) {
-					that.warrap.family.mother.gotoWork();
-				} 
-			}
-			roll = Math.floor(Math.random() * 101);
-			if (roll < 50) {
-				that.warrap.family.girl.gotoWork();
-			} else {
-				that.warrap.family.girl.gotoSchool();
-			}
-			that.gameStates.choose = false;
-			that.gameStates.roll = true;
+		switch(which){
+		case 27: // Esc
+			console.log(warrap.parent)
+			break;
 			
-		} 
+		case 32: // Space
+			if(that.gameStates.first){
+				that.gameStates.first = false;
+				that.gameStates.choose = true;
+				that.firstTimer = 0;
+			}
+			break;
+			
+		case 13: // Enter
+			if(that.gameStates.choose){
+				var roll = Math.floor(Math.random() * 101);
+				for (var i = 0; i < that.warrap.family.sib.length; i += 1) {
+					if (roll < 50) {
+						that.warrap.family.sib[i].gotoWork();
+					} else {
+						that.warrap.family.sib[i].gotoSchool();
+					}
+				}
+				roll = Math.floor(Math.random() * 101);
+				if (that.warrap.family.father.alive) {
+					if (roll < 50) {
+						that.warrap.family.father.gotoWork();
+					} 
+				}
+				roll = Math.floor(Math.random() * 101);
+				if (that.warrap.family.mother.alive) {
+					if (roll < 50) {
+						that.warrap.family.mother.gotoWork();
+					} 
+				}
+				roll = Math.floor(Math.random() * 101);
+				if (roll < 50) {
+					that.warrap.family.girl.gotoWork();
+				} else {
+					that.warrap.family.girl.gotoSchool();
+				}
+				that.gameStates.choose = false;
+				that.gameStates.roll = true;
+			}
+			break;
+		}
 	}
 	
 	that.mouseup = function(){
