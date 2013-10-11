@@ -28,7 +28,18 @@ function titlemenu_init(){
 	// Next scene transition
 	this.next=function(){
 		// Logic to select the correct scene
-		this.nextID='theTrail';
+		
+		var hit=this.hitPos(mouse, this.pos, this.scale);
+		if(-1<hit){
+			switch(this.getEnt(hit).id){
+			case 'ent_start':
+				this.nextID='theTrail';
+				break;
+			case 'ent_credits':
+				this.nextID='credits';
+				break;
+			}
+		}
 	}
 	
 	this.onStep=function(){
