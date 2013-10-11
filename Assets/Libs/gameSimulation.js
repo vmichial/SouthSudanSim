@@ -78,10 +78,9 @@ function gameSimulation(){
 	}
 	
 	that.keyup = function(which){
-		console.log(which);
 		switch(which){
 		case 27: // Esc
-			console.log(warrap.parent)
+			this.parent.select('titlemenu');
 			break;
 			
 		case 32: // Space
