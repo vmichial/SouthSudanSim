@@ -8,8 +8,6 @@ var s_game;
 function gameSimulation(){
 	this.id = 'theTrail';
 	this.manager;
-	//this.warrap.environment = new Environment();
-	
 	var that = this;
 	
 	// ▼ Image initialization
@@ -83,30 +81,30 @@ function gameSimulation(){
 		case 13: // Enter
 			if(that.gameStates.choose){
 				var roll = Math.floor(Math.random() * 101);
-				for (var i = 0; i < that.warrap.family.sib.length; i += 1) {
+				for (var i = 0; i < s_game.environment.family.sib.length; i += 1) {
 					if (roll < 50) {
-						that.warrap.family.sib[i].gotoWork();
+						s_game.environment.family.sib[i].gotoWork();
 					} else {
-						that.warrap.family.sib[i].gotoSchool();
+						s_game.environment.family.sib[i].gotoSchool();
 					}
 				}
 				roll = Math.floor(Math.random() * 101);
-				if (that.warrap.family.father.alive) {
+				if (s_game.environment.family.father.alive) {
 					if (roll < 50) {
-						that.warrap.family.father.gotoWork();
+						s_game.environment.family.father.gotoWork();
 					} 
 				}
 				roll = Math.floor(Math.random() * 101);
-				if (that.warrap.family.mother.alive) {
+				if (s_game.environment.family.mother.alive) {
 					if (roll < 50) {
-						that.warrap.family.mother.gotoWork();
+						s_game.environment.family.mother.gotoWork();
 					} 
 				}
 				roll = Math.floor(Math.random() * 101);
 				if (roll < 50) {
-					that.warrap.family.girl.gotoWork();
+					s_game.environment.family.girl.gotoWork();
 				} else {
-					that.warrap.family.girl.gotoSchool();
+					s_game.environment.family.girl.gotoSchool();
 				}
 				that.gameStates.choose = false;
 				that.gameStates.roll = true;
