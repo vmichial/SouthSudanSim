@@ -13,35 +13,32 @@ function gameSimulation(){
 	var that = this;
 	
 	// ▼ Image initialization
-	var supplyImg = new Array();
-	for (var i = 0; i < 3; i += 1) supplyImg[i] = document.getElementById("supply" + i);
-	var girlImg = new Array();
-	for (var i = 0; i < 8; i += 1) girlImg[i] = document.getElementById("girl" + i);
-	var sibImg = new Array();
-	for (var i = 0; i < 2; i += 1) sibImg[i] = document.getElementById("sib" + i);
-	var motherImg = new Array();
-	var villageImg = new Array();
-	for (var i = 0; i < 2; i += 1) villageImg[i] = document.getElementById("village" + i);
-	var fatherImg = new Array();
-	for (var i = 0; i < 2; i += 1) fatherImg[i] = document.getElementById("father" + i);
-	var disIcon = new Array();
-	for (var i = 0; i < 6; i += 1) disIcon[i] = document.getElementById("dis" + i);
-	var workImg = new Array();
-	for (var i = 0; i < 2; i += 1) workImg[i] = document.getElementById("work" + i);
-	var schoolImg = new Array();
-	for (var i = 0; i < 2; i += 1) schoolImg[i] = document.getElementById("school" + i);
-	var cowImg = new Array();
-	for (var i = 0; i < 2; i += 1) cowImg[i] = document.getElementById("cow" + i);
-	var meatImg = new Array();
-	for (var i = 0; i < 2; i += 1) meatImg[i] = document.getElementById("meat" + i);
-	var credImg = new Array();
-	for (var i = 0; i < 1; i += 1) credImg[i] = document.getElementById("credit" + i);
-	var teachImg = new Array();
-	for (var i = 0; i < 2; i += 1) teachImg[i] = document.getElementById("teach" + i);
-	var deathImg = new Array();
-	deathImg[0] = document.getElementById("grim0");
-	deathImg[1] = document.getElementById("skull");
-	var goat = document.getElementById("goat0");
+	function mkimg(id){
+		var ret=new Array();
+		for(var i=0; 1; ++i){
+			var e=$('#'+id+i);
+			if(e.length) ret.push(e[0]);
+			else break;
+		}
+		return ret;
+	}
+	
+	var supplyImg = mkimg('supply');
+	var girlImg = mkimg('girl');
+	var sibImg = mkimg('sib');
+	var villageImg = mkimg('village');
+	var motherImg;
+	var fatherImg = mkimg('father');
+	var disIcon = mkimg('dis');
+	var workImg = mkimg('work');
+	var schoolImg = mkimg('school');
+	var cowImg = mkimg('cow');
+	var meatImg = mkimg('meat');
+	var credImg = mkimg('credit');
+	var teachImg = mkimg('teach');
+	var goat = mkimg('goat');
+	var deathImg = mkimg('grim');
+	deathImg.push(document.getElementById("skull"));
 	// ▲ Image initialization
 	
 	
