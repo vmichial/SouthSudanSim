@@ -4,11 +4,11 @@
 
 */
 
-var warrap; // Whats warrap?
+var s_game;
 function gameSimulation(){
 	this.id = 'theTrail';
 	this.manager;
-	this.warrap = new Environment();
+	//this.warrap.environment = new Environment();
 	
 	var that = this;
 	
@@ -44,25 +44,15 @@ function gameSimulation(){
 	var goat = document.getElementById("goat0");
 	// ▲ Image initialization
 	
-	this.firstTimer = 0;
-	this.firstMax = 20;
-	this.explainTimer = 0;
-	this.explainMax = 20;
-
-	//this will make the manager goto next scene.... this.manager.select('id');
-	//this.manager.selectLast() will make the manager goto the last scene
-	this.environment = new Environment(this);
-	this.gameStates = {
-		first : true,
-		choose 	: false,
-		roll	: false,
-		explain	: false,
-		endCase : false
-	}
+	
+	this.firstTimer;
+	this.firstMax;
+	this.explainTimer;
+	this.explainMax;
+	this.environment;
+	this.gameStates;
+	
 	this.init = function(){
-		// Reference problem: this refers to the obect "init", rather than the parent
-		// Just kidding. I hate JavaScript
-		
 		this.firstTimer = 0;
 		this.firstMax = 5;
 		this.explainTimer = 0;
@@ -70,13 +60,14 @@ function gameSimulation(){
 		
 		this.environment = new Environment(this);
 		this.gameStates = {
-			first : true,
-			choose 	: false,
-			roll	: false,
-			explain	: false,
-			endCase : false
+			first  : true,
+			choose : false,
+			roll   : false,
+			explain: false,
+			endCase: false
 		}
 	}
+	this.init();
 	
 	that.keyup = function(which){
 		switch(which){
@@ -155,7 +146,7 @@ function gameSimulation(){
 		
 		}
 		else if(this.gameStates.roll){
-			this.warrap.family.update();
+			s_game.environment.family.update();
 			this.gameStates.roll = false;
 			this.gameStates.explain = true;
 		}
@@ -181,47 +172,47 @@ function gameSimulation(){
 			ctx.fillStyle = 'black';
 			ctx.fillRect(0,0,1024,768);
 			ctx.fillStyle = 'white';
-			if(!this.warrap.family.mother.alive){
+			if(!s_game.environment.family.mother.alive){
 				ctx.fillText("Your mother died bearing you as a child...", x,startY);
 				startY+=60
 			}			
-			if(!this.warrap.family.father.alive){
+			if(!s_game.environment.family.father.alive){
 				ctx.fillText("Your Father died when you were younger....",x,startY);
 				startY+=60;
 			}
 			
-			ctx.fillText("You have "+(this.warrap.family.sib.length)+ ((this.warrap.family.sib.length==1)? " sibling." : " siblings."),x,startY);
+			ctx.fillText("You have "+(s_game.environment.family.sib.length)+ ((s_game.environment.family.sib.length==1)? " sibling." : " siblings."),x,startY);
 			startY+=60;
-			if(!this.warrap.hospital.available){
+			if(!s_game.environment.hospital.available){
 				ctx.fillText("Your Area does not have a hospital nearby...", x , startY);
 				startY+=60;
 			}
-			if(this.warrap.school.far){
+			if(s_game.environment.school.far){
 				ctx.fillText("Your School is a long walk away...", x , startY);
 				startY+=60;
 			}
-			if(!this.warrap.school.hasMats){
+			if(!s_game.environment.school.hasMats){
 				ctx.fillText("Your School doesn't have adequate supplies...", x , startY);
 				startY+=60;
 			}
-			if(!this.warrap.school.hasBuilding){
+			if(!s_game.environment.school.hasBuilding){
 				ctx.fillText("Your School does not have a building...", x , startY);
 				startY+=60;
 			}
-			if(!this.warrap.school.hasGoodTeacher){
+			if(!s_game.environment.school.hasGoodTeacher){
 				ctx.fillText("Your School doesn't have a well educated teacher...", x , startY);
 				startY+=60;
 			}
-			if(!this.warrap.school.feedStudents){
+			if(!s_game.environment.school.feedStudents){
 				ctx.fillText("Your School does not feed it's students...", x , startY);
 				startY+=60;
 			}						
 		}
 		else if(this.gameStates.choose){
 			ctx.clearRect(0,0,canvas.width,canvas.height);
-			if (this.warrap.flooded) {
+			if (s_game.environment.flooded) {
 					ctx.drawImage(villageImg[1], 0, 0, canvas.width, canvas.height);
-			} else if (this.warrap.droughted) {
+			} else if (s_game.environment.droughted) {
 					ctx.drawImage(workImg[0], 0, 0, canvas.width, canvas.height);
 			} else {
 					ctx.drawImage(villageImg[0], 0, 0, canvas.width, canvas.height);

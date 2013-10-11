@@ -1,5 +1,6 @@
 //objects for sudan classes, diseases and lifeEvents
 function Environment(scene) {
+	console.log('new Environment created');
 	this.parent = scene;
 	this.school = new School();
 	this.hospital = new Hospital();

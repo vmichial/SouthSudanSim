@@ -43,6 +43,8 @@ function titlemenu_init(){
 			switch(this.getEnt(hit).id){
 			case 'ent_start':
 				this.nextID='theTrail';
+				s_game.init();
+				console.log(s_game.environment.school.far);
 				break;
 			case 'ent_credits':
 				this.nextID='credits';
@@ -58,7 +60,6 @@ function titlemenu_init(){
 				this.translate({x:0, y:0});
 				this.manager.select(this.nextID);
 				this.nextID=undefined;
-				warrap.init();
 			}
 		}
 	}
