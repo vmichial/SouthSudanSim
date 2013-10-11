@@ -61,14 +61,15 @@ function gameSimulation(){
 	}
 	this.init = function(){
 		// Reference problem: this refers to the obect "init", rather than the parent
-
-		warrap.firstTimer = 0;
-		warrap.firstMax = 5;
-		warrap.explainTimer = 0;
-		warrap.explainMax = 20;
+		// Just kidding. I hate JavaScript
 		
-		warrap.environment = new Environment(warrap);
-		warrap.gameStates = {
+		this.firstTimer = 0;
+		this.firstMax = 5;
+		this.explainTimer = 0;
+		this.explainMax = 20;
+		
+		this.environment = new Environment(this);
+		this.gameStates = {
 			first : true,
 			choose 	: false,
 			roll	: false,
